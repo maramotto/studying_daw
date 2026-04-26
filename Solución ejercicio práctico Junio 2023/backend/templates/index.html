@@ -1,0 +1,27 @@
+<html>
+	<body>
+
+		<h1>Las 33 primeras vueltas de Alonso</h1>
+
+		<form action="/newtime" method="post">
+			<div>
+				<label>Número de vuelta: </label>
+				<input name="numLap" placeholder="Vuelta"/>
+			</div>
+
+			<div>
+				<label>Tiempo: </label>
+				<input name="lapTime" placeholder="Tiempo"/>
+			</div>
+
+			<input type="submit" value="Añadir"/>
+		</form>
+
+		<ul>
+			{{#times}}
+			<li>Número de vuelta: {{numLap}}, Tiempo: {{lapTime}} <a href="/removetime/{{id}}">Borrar</a></li>
+			{{/times}}
+		</ul>
+
+	</body>
+</html>

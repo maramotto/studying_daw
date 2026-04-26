@@ -1,0 +1,72 @@
+<html>
+  <body>
+    <h1>Nueva entrega</h1>
+
+    <form action="/createDelivery" method="POST">
+      <div>
+        <label>Matrícula: </label>
+        <input name="license" placeholder="Matrícula" />
+      </div>
+
+      <div>
+        <label>Modelo: </label>
+        <input name="model" placeholder="Modelo" />
+      </div>
+
+      <div>
+        <label>Color: </label>
+        <input name="color" placeholder="Color" />
+      </div>
+
+      <div>
+        <label>Cilindrada: </label>
+        <input name="cylinder" placeholder="Cilindrada" />
+      </div>
+
+      <div>
+        <label>Dirección de envio: </label>
+        <input name="clientAddress" placeholder="Dirección de envio" />
+      </div>
+
+      <div>
+        <label>Nombre cliente: </label>
+        <input name="clientName" placeholder="Nombre cliente" />
+      </div>
+
+      <input type="submit" value="Dar de alta" />
+    </form>
+
+    <h1>Entregas pendientes</h1>
+
+    <ul>
+      {{#pendingDeliveries}}
+      <li>
+        Matrícula: {{license}}, 
+		    Modelo: {{model}}, 
+		    Color: {{color}}, 
+		    Cilindrada: {{cylinder}}, 
+		    Dirección de envio: {{clientAddress}}, 
+		    Nombre cliente: {{clientName}}
+
+        <a href="/cancelDelivery/{{id}}">Cancelar Entrega</a>
+		    <a href="/finalizeDelivery/{{id}}">Entrega Finalizada</a>
+      </li>
+      {{/pendingDeliveries}}
+    </ul>
+
+    <h1>Entregas finalizadas</h1>
+
+    <ul>
+      {{#finishedDeliveries}}
+      <li>
+        Matrícula: {{license}}, 
+		    Modelo: {{model}}, 
+		    Color: {{color}}, 
+		    Cilindrada: {{cylinder}}, 
+		    Dirección de envio: {{clientAddress}}, 
+		    Nombre cliente: {{clientName}}
+      </li>
+      {{/finishedDeliveries}}
+    </ul>
+  </body>
+</html>

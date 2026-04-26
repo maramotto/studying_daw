@@ -1,0 +1,13 @@
+<h1>Marvel Pop Paradise</h1>
+
+<ul>
+  <li *ngFor="let product of products">
+    <span>Nombre: {{product.name}}</span>
+
+    <span [style]="product.price >= 100 ? 'text-color: red;' : 'text-color: green;'">Precio: {{product.price}}</span>
+    
+    <a [routerLink]="['/purchase', product.id]">Comprar</a>
+  </li>
+</ul>
+
+<a *ngIf="userService.isAdmin()" [routerLink]="['/admin']">Enviar Productos</a>
