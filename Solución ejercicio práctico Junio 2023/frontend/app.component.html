@@ -1,0 +1,22 @@
+<h1>Las 33 primeras vueltas de Alonso</h1>
+
+<div>
+  <div>
+    <label>Número de vuelta: </label>
+    <input [(ngModel)]="time.numLap" type="number" placeholder="Vuelta" />
+  </div>
+
+  <div>
+    <label>Tiempo: </label>
+    <input [(ngModel)]="time.lapTime" type="text" placeholder="Tiempo" />
+  </div>
+
+  <button (click)="addTime()">Añadir</button>
+</div>
+
+<ul>
+  <li *ngFor="let time of times">
+    Número de vuelta: {{ time.numLap }}, Tiempo: {{ time.lapTime }}
+    <button (click)="deleteTime(time.id)">Borrar</button>
+  </li>
+</ul>

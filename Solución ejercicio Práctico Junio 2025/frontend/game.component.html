@@ -1,0 +1,19 @@
+<div *ngIf="gameNotAvailable">
+    <h1>Juego no disponible</h1>
+</div>
+
+<div *ngIf="!gameNotAvailable">
+    <h1>Juego: {{game.name}} <span *ngIf="game.stock < 3" style="color: red;">Últimas unidades</span></h1>
+
+    <ul>
+        <li>Precio base: {{game.price}}</li>
+        <li *ngIf="game.discount">Precio oferta: {{game.price * 0.8}}</li>
+        <li>Unidades disponibles: {{game.stock}}</li>
+    </ul>
+
+    <div>
+        <button (click)="buyGame()">Comprar</button>
+        <button (click)="offerGame()">Poner en oferta</button>
+        <button (click)="deleteGame()">Eliminar</button>
+    </div>
+</div>
