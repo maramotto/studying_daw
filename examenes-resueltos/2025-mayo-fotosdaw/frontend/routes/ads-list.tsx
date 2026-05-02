@@ -12,7 +12,7 @@ import { getAds, createAd } from "../services/ads-service";
 // clientLoader se ejecuta automaticamente al navegar a esta ruta
 // Carga las dos listas: disponibles (rented=false) y alquiladas (rented=true)
 // Equivale al ngOnInit() que hacia dos subscribe al servicio
-export async function clientLoader() {
+export async function clientLoader({}: Route.ClientLoaderArgs) {
     const [adsNotRented, adsRented] = await Promise.all([
         getAds(false),
         getAds(true),

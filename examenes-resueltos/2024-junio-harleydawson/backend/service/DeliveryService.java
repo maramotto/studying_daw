@@ -4,38 +4,52 @@ public class DeliveryService {
     @Autowired
     private DeliveryRepository deliveryRepository;
 
+    @Autowired
+    private DeliveryMapper mapper;
+
     // Obtiene entregas filtradas por estado, ordenadas por cilindrada DESC
-    public List<Delivery> getDeliveries(String status) {
-        return deliveryRepository.findAllByStatusOrderByDisplacementDesc(status);
+    public Collection<DeliveryDTO> getDeliveries(String status) {
+        return toDTOs(deliveryRepository.findAllByStatusOrderByDisplacementDesc(status));
     }
 
     // Crea una entrega nueva; devuelve null si ya existe una con esa matricula
-    public Delivery createDelivery(Delivery delivery) {
-        if (deliveryRepository.findByPlate(delivery.getPlate()).isPresent()) {
+    public DeliveryDTO createDelivery(DeliveryDTO dto) {
+        if (deliveryRepository.findByPlate(dto.plate()).isPresent()) {
             return null;
         }
+        Delivery delivery = toDomain(dto);
         delivery.setStatus("PENDING");
-        return deliveryRepository.save(delivery);
+        delivery = deliveryRepository.save(delivery);
+        return toDTO(delivery);
     }
 
-    // Actualiza el estado de una entrega (FINALIZED, CANCELLED, etc.)
-    public Delivery replaceDelivery(Long id, Delivery updatedDelivery) {
-        Optional<Delivery> existing = deliveryRepository.findById(id);
-        if (existing.isPresent()) {
-            Delivery delivery = existing.get();
-            delivery.setStatus(updatedDelivery.getStatus());
-            return deliveryRepository.save(delivery);
-        }
-        return null;
+    // Actualiza todos los campos de una entrega
+    public DeliveryDTO replaceDelivery(long id, DeliveryDTO dto) {
+        Delivery delivery = toDomain(dto);
+        delivery.setId(id);
+        delivery = deliveryRepository.save(delivery);
+        return toDTO(delivery);
     }
 
-    // Elimina una entrega (cancelacion)
-    public Delivery deleteDelivery(Long id) {
-        Optional<Delivery> existing = deliveryRepository.findById(id);
-        if (existing.isPresent()) {
-            deliveryRepository.deleteById(id);
-            return existing.get();
-        }
-        return null;
+    // Elimina una entrega y devuelve su DTO
+    public DeliveryDTO deleteDelivery(long id) {
+        Delivery delivery = deliveryRepository.findById(id).orElseThrow();
+        DeliveryDTO dto = toDTO(delivery);
+        deliveryRepository.deleteById(id);
+        return dto;
+    }
+
+    // --- Helpers de conversion (delegan en el mapper) ---
+
+    private DeliveryDTO toDTO(Delivery d) {
+        return mapper.toDTO(d);
+    }
+
+    private Delivery toDomain(DeliveryDTO dto) {
+        return mapper.toDomain(dto);
+    }
+
+    private Collection<DeliveryDTO> toDTOs(Collection<Delivery> deliveries) {
+        return mapper.toDTOs(deliveries);
     }
 }

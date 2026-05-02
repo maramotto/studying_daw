@@ -10,7 +10,7 @@ import {
 } from "../services/deliveries-service";
 
 // clientLoader: carga las dos listas (pendientes y finalizadas) antes de pintar
-export async function clientLoader() {
+export async function clientLoader({}: Route.ClientLoaderArgs) {
     const pending = await getDeliveries("PENDING");
     const finalized = await getDeliveries("FINALIZED");
     return { pending, finalized };

@@ -15,7 +15,11 @@ public class GameService {
         return toDTO(gameRepository.findById(id).orElseThrow());
     }
 
+    // Devuelve null si ya existe un juego con ese nombre (el controller devolvera 409)
     public GameDTO createGame(GameDTO gameDTO) {
+        if (gameRepository.findByName(gameDTO.name()).isPresent()) {
+            return null;
+        }
         Game game = toDomain(gameDTO);
         gameRepository.save(game);
         return toDTO(game);

@@ -11,7 +11,7 @@ import type { Route } from "./+types/games-list";
 
 // clientLoader se ejecuta en el navegador antes de pintar el componente.
 // Aqui cargamos las dos listas: juegos sin oferta y juegos con oferta.
-export async function clientLoader() {
+export async function clientLoader({}: Route.ClientLoaderArgs) {
   const [nonDiscountedGames, discountedGames] = await Promise.all([
     getGames(false),
     getGames(true),

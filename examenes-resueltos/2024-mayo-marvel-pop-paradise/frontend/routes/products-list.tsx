@@ -12,16 +12,17 @@
 //   (se usa style={{ color: ... }} que es el equivalente a [style] de Angular)
 // - Boton/link "Comprar" que navega a /product/:id/buy
 
+import type { Route } from "./+types/products-list";
 import { getProducts } from "../services/products-service";
 
 // clientLoader se ejecuta en el cliente antes de renderizar.
 // Equivale a ngOnInit() + subscribe() en Angular.
-export async function clientLoader() {
+export async function clientLoader({}: Route.ClientLoaderArgs) {
   const products = await getProducts();
   return { products };
 }
 
-export default function ProductsList({ loaderData }: { loaderData: { products: Product[] } }) {
+export default function ProductsList({ loaderData }: Route.ComponentProps) {
   // loaderData contiene lo que devolvio clientLoader.
   const { products } = loaderData;
 
@@ -41,7 +42,7 @@ export default function ProductsList({ loaderData }: { loaderData: { products: P
             </span>
 
             {/* Link a la pagina de compra. Equivale a [routerLink]="['/purchase', p.id]". */}
-            <a href={"/product/" + p.id + "/buy"}>Comprar</a>
+            <Link to={"/product/" + p.id + "/buy"}>Comprar</Link>
           </li>
         ))}
       </ul>

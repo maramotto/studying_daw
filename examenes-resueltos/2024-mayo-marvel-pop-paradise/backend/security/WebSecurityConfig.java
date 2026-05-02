@@ -12,6 +12,7 @@ public class WebSecurityConfig {
             // Solo ADMIN puede ver productos a enviar y marcar como enviado.
             .requestMatchers(HttpMethod.GET, "/api/products/to-send").hasRole("ADMIN")
             .requestMatchers(HttpMethod.PUT, "/api/products/*/send").hasRole("ADMIN")
+            .anyRequest().authenticated()
         );
 
         http.formLogin(Customizer.withDefaults());

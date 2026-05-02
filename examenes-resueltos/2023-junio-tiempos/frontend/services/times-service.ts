@@ -2,11 +2,12 @@
 // Equivalente al TimesService de Angular con HttpClient,
 // pero aqui usamos fetch nativo y devolvemos Promises (no Observables).
 
-const BASE_URL = "/api/times/";
+const BASE_URL = "/api/times";
 
 // Obtener todos los tiempos ordenados por vuelta ASC.
 export async function getTimes(): Promise<Time[]> {
   const response = await fetch(BASE_URL);
+  if (!response.ok) throw new Error("Error al obtener tiempos");
   return response.json();
 }
 
@@ -25,7 +26,7 @@ export async function createTime(
 
 // Eliminar un tiempo por su id.
 export async function removeTime(id: number): Promise<Response> {
-  return fetch(BASE_URL + id, {
+  return fetch(BASE_URL + "/" + id, {
     method: "DELETE",
   });
 }

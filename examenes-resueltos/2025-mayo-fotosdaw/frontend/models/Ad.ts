@@ -1,6 +1,6 @@
 // Interfaz que representa un anuncio de alquiler
 // Coincide con el AdDTO del backend
-export interface Ad {
+export default interface Ad {
     id?: number;
     title: string;
     description: string;

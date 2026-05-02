@@ -14,8 +14,7 @@ public class Time {
     public Time() {
     }
 
-    public Time(Long id, int numLap, String lapTime) {
-        this.id = id;
+    public Time(int numLap, String lapTime) {
         this.numLap = numLap;
         this.lapTime = lapTime;
     }

@@ -11,7 +11,7 @@ import type { Route } from "./+types/times-list";
 
 // clientLoader se ejecuta en el navegador antes de pintar el componente.
 // Aqui cargamos la lista de tiempos ordenada por vuelta ASC.
-export async function clientLoader() {
+export async function clientLoader({}: Route.ClientLoaderArgs) {
   const times = await getTimes();
   return { times };
 }

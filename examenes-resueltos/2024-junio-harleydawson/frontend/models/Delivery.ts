@@ -1,5 +1,5 @@
 // Interfaz que representa una entrega de moto
-export interface Delivery {
+export default interface Delivery {
     id?: number;
     plate: string;
     model: string;

@@ -18,6 +18,9 @@ public class GameRestController {
     @PostMapping("/")
     public ResponseEntity<GameDTO> createGame(@RequestBody GameDTO gameDTO) {
         gameDTO = gameService.createGame(gameDTO);
+        if (gameDTO == null) {
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
+        }
         URI location = fromCurrentRequest().path("/{id}").buildAndExpand(gameDTO.id()).toUri();
         return ResponseEntity.created(location).body(gameDTO);
     }
