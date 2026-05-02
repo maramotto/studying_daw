@@ -1,0 +1,15 @@
+services:
+  web:
+    image: daw/ludomaniacos:1.0.0
+    ports:
+      - "443:8443"
+    restart: on-failure
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/ludomaniacos
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_DATASOURCE_PASSWORD=password
+  db:
+    image: mysql:8.0
+    environment:
+      - MYSQL_ROOT_PASSWORD=password
+      - MYSQL_DATABASE=ludomaniacos

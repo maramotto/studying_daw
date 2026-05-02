@@ -1,0 +1,7 @@
+// Interfaz TypeScript que refleja la entidad Time del backend.
+// Coincide campo a campo con los campos de la API REST.
+export interface Time {
+  id?: number;
+  numLap: number;
+  lapTime: string;
+}
